@@ -62,6 +62,7 @@
 <script src="/Public/BJUI/js/bjui-plugins.js"></script>
 -->
 <!-- plugins -->
+<script src="/Public/Admin/js/jquery.treetable.js"></script>
 <!-- swfupload for uploadify && kindeditor -->
 <script src="/Public/BJUI/plugins/swfupload/swfupload.js"></script>
 <!-- kindeditor -->

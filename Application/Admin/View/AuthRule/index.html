@@ -1,0 +1,91 @@
+<style>
+    table.treetable span.indenter {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      text-align: right;
+
+      /* Disable text selection of nodes (for better D&D UX) */
+      user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      -webkit-user-select: none;
+
+      /* Force content-box box model for indenter (Bootstrap compatibility) */
+      -webkit-box-sizing: content-box;
+      -moz-box-sizing: content-box;
+      box-sizing: content-box;
+
+      width: 16px;
+    }
+
+    table.treetable span.indenter a {
+      background-position: left center;
+      background-repeat: no-repeat;
+      display: inline-block;
+      text-decoration: none;
+      width: 16px;
+    }
+    
+    table.treetable tr.expanded td span.indenter a{
+        background: rgba(0, 0, 0, 0) url("__IMG__/allbgs.png") no-repeat scroll 0 -3px;
+        width: 16px;
+    }
+
+    table.treetable tr.collapsed td span.indenter a{
+        background: rgba(0, 0, 0, 0) url("__IMG__/allbgs.png") no-repeat scroll -16px -3px;
+        width: 16px;
+    }
+</style>
+<div class="bjui-pageHeader">
+    <button type="button" class="btn btn-success" data-icon="plus" data-toggle="dialog"
+    data-options="{id:'auth-rule-add', url:'{:U('AuthRule/add')}', title:'添加菜单', mask:true}">新增菜单</button>&nbsp;
+    <button type="submit" class="btn btn-info" data-icon="sort-numeric-asc" form="sc-menu-index">更新排序</button>
+    <button type="button" class="btn btn-orange pull-right" data-icon="refresh" onclick="$(this).navtab('refresh');" >刷新</button>
+</div>
+<div class="bjui-pageContent tableContent">
+    <form action="{:U('Menu/sortAll')}" data-toggle="ajaxform" data-reload-navtab="true">
+    <table id="auth-rule-treetable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th width="60" align="center">排序</th>
+                <th width="60">ID</th>
+                <th width="250">菜单名称</th>
+                <th>URL地址</th>
+                <th width="50" align="center">图标</th>
+                <th width="80" align="center">类型</th>
+                <th width="100" align="center">状态</th>
+                <th width="150" align="center">管理操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name="menuList" item="v" >
+            <tr data-tt-id="{$v.id}" data-tt-parent-id="{$v.pid}">
+                <td><input type="text" name="sort[{$v.id}]" value="{$v.sort}" size="5" class="text-center"></td>
+                <td>{$v.id}</td>
+                <td>{$v.title}</td>
+                <td>{$v.name}</td>
+                <td align="center"><i class="fa fa-{$v.icon} fa-lg" aria-hidden="true"></i></td>
+                <td align="center">
+                    <if condition="$v['menutype'] eq 1">分组
+                    <elseif condition="$v['menutype'] eq 2"/>菜单
+                    <else/>节点
+                    </if>
+                </td>
+                <td align="center">{$v.status|statusBtn=$v['id'], ###}</td>
+                <td align="center">
+                    <button type="button" class="btn btn-green" data-toggle="dialog" data-icon="pencil" data-options="{id:'sc-editMenu{$v.id}', url:'{:U('AuthRule/edit')}?id={$v.id}', title:'编辑菜单', mask:true}" title="编辑" ></button>
+                    <button type="button" class="btn btn-red" data-url="{:U('AuthRule/del')}?id={$v.id}" data-icon="trash" data-toggle="doajax" data-confirm-msg="确定要删除吗？" title="删除"></button>
+                </td>
+            </tr>
+           </foreach>
+        </tbody>
+    </table>
+    </form>
+</div>
+
+<script>
+    $("#auth-rule-treetable").treetable({ expandable:true, column:2});
+</script>
+

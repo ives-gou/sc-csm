@@ -15,3 +15,18 @@ function statusBtn($id, $status){
 	}
 	return $str;
 }
+
+/**
+ * 查询用户是否登录
+ * @return int  0-未登录，大于0-登录id 
+ */
+function is_login(){
+	$uid = session(C('AUTH_KEY'));
+	return $uid > 0 ? $uid : 0;
+}
+
+// 检测输入的验证码是否正确，$code为用户输入的验证码字符串
+function check_verify($code, $id = ''){
+    $verify = new \Think\Verify();
+    return $verify->check($code, $id);
+}

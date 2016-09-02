@@ -10,10 +10,18 @@
 namespace Admin\Controller;
 class IndexController extends AdminController {
     public function index(){
-       $this->display();
+        $map = array(
+                'status' => 1,
+                'menutype' => array('neq', 3),
+            );
+        $menuList = D('AuthRule')->getMenu($map);
+        $menuList = \Common\Lib\ArrayTree::list2tree($menuList);
+       
+        $this->assign('menuList', $menuList);
+        $this->display();
     }
 
     public function index_layout(){
-    	$this->display();
+        $this->display();
     }
 }

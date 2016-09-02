@@ -1,5 +1,5 @@
 <?php if (!defined('THINK_PATH')) exit();?><div class="bjui-pageHeader">
-    <form id="pagerForm" data-toggle="ajaxsearch" action="/index.php/Admin/Manager/index.html?_=1472804153465" method="post">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="/index.php/Admin/Manager/index.html?_=1472806824399" method="post">
         <button type="button" class="btn btn-success" data-icon="plus" data-toggle="dialog"
         data-options="{id:'Manager-add', url:'<?php echo U('Manager/add');?>', title:'添加管理', mask:true}">添加管理</button>&nbsp;
         &nbsp;&nbsp;

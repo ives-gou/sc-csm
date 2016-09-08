@@ -1,0 +1,54 @@
+<div class="bjui-pageContent"> 
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <foreach name="Think.config.CONFIG_GROUPS" item="v">
+            <li <if condition="$group eq $key" >class="active"</if>>
+                <a href="{:U('?group='.$key)}" role="tab" data-toggle="navtab" data-title="常用配置">{$v}</a>
+            </li>
+        </foreach>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade active in">
+            <form action="{:U('save')}" method="post" data-toggle="ajaxform" data-reload-navtab="true">
+            <table class="table table-hover table-bordered">
+                <tbody>
+                    <foreach name="list" item="v">
+                        <tr>
+                            <th width="200">&nbsp;{$v.title}：</th>
+                            <td>
+                                <switch name="v.type">
+                                <case value="1">
+                                    <input type="text" name="{$v.name}" value="{$v.value}" data-toggle="spinner">
+                                </case>
+                                <case value="2">
+                                    <input type="text" name="{$v.name}" value="{$v.value}" size="30" >
+                                </case>
+                                <case value="3|4">
+                                    <textarea name="{$v.name}" cols="40">{$v.value}</textarea>
+                                </case>
+                                <case value="5">
+                                    <select name="{$v.name}" data-toggle="selectpicker">
+                                        <php> $configAttr = parse_config_attr($v['extra']); echo $v['extra']; </php>
+                                        <foreach name="configAttr" item="vo" key="ko">
+                                            <option value="{$ko}" <eq name="v.value" value="$ko">selected</eq>>{$vo}&nbsp;&nbsp;</option>
+                                        </foreach>
+                                    </select>
+                                </case>
+                                </switch>
+                                &nbsp;{$v.remark}
+                            </td>
+                        </tr>
+                    </foreach>
+                </tbody>
+            </table>
+            </form>
+        </div>
+    </div>         
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

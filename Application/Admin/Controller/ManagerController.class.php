@@ -12,6 +12,7 @@ class ManagerController extends AdminController{
 	protected $model;
 
 	public function _initialize(){
+		parent::_initialize();
 		$this->model = D('Manager');
 	}
 

@@ -1,5 +1,5 @@
 <?php if (!defined('THINK_PATH')) exit();?><div class="bjui-pageContent tableContent">
-    <form id="authGroup-auth-form" action="/index.php/Admin/AuthGroup/auth.html?id=1&amp;_=1472801163412" method="post" data-toggle="ajaxform">
+    <form id="authGroup-auth-form" action="/index.php/Admin/AuthGroup/auth.html?id=1&amp;_=1473069403166" method="post" data-toggle="ajaxform">
     <table class="table table-bordered">
         <tbody>
             <tr>

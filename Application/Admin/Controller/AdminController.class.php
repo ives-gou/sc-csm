@@ -16,6 +16,14 @@ class AdminController extends Controller{
 		if (!is_login()) {
 			$this->redirect('Public/login');
 		}
+
+		 /* 读取数据库中的配置 */
+        $admin_config = S('ADMIN_CONFIG');
+        if (!$admin_config) {
+            $admin_config = D('Config')->getConfig();
+            S('ADMIN_CONFIG',$admin_config);
+        }
+        C($admin_config);
 	}
 
 
@@ -39,5 +47,15 @@ class AdminController extends Controller{
 		$result = $this->model->delete($id);
 		if (!$result) return show(300, '删除失败');
 		return show(200, '删除成功');
+	}
+
+	/* 公共编辑方法 */
+	public function edit(){
+		$id = I('get.id', 0, 'intval');
+		if ($id == 0) return show(300, '参数类型错误');
+		$info = $this->model->getInfo($id);
+		if (empty($info)) return show(300, '获取数据失败');
+		$this->assign('info', $info); 
+		$this->display();
 	}
 }

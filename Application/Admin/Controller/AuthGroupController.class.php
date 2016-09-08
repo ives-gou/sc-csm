@@ -12,6 +12,7 @@ class AuthGroupController extends AdminController{
 	protected $model;
 
 	public function _initialize(){
+		parent::_initialize();
 		$this->model = M('auth_group');
 	}
 

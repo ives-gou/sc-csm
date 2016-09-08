@@ -13,6 +13,7 @@ class AuthRuleController extends AdminController {
     protected $model;
 
     public function _initialize(){
+        parent::_initialize();
         $this->model = D('AuthRule');
     }
 

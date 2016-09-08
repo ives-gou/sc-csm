@@ -1,5 +1,5 @@
 <?php if (!defined('THINK_PATH')) exit();?><div class="bjui-pageHeader">
-    <form id="pagerForm" data-toggle="ajaxsearch" action="/index.php/Admin/AuthGroup/index.html?_=1472802213980" method="post">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="/index.php/Admin/AuthGroup/index.html?_=1473314077005" method="post">
         <button type="button" class="btn btn-success" data-icon="plus" data-toggle="dialog"
         data-options="{id:'auth-group-add', url:'<?php echo U('AuthGroup/add');?>', title:'新增角色', mask:true}">新增角色</button>&nbsp;
         <label>角色名：</label><input type="text" value="<?php echo ($title); ?>" name="title" class="form-control" size="15">&nbsp;   
@@ -9,7 +9,7 @@
 </div>
 
 <div class="bjui-pageContent tableContent">
-    <table class="table table-bordered"  data-nowrap="true">
+    <table class="table table-bordered table-hover"  data-nowrap="true">
         <thead>
             <tr>
                 <th width="40">ID</th>

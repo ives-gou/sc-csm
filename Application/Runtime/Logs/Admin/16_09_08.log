@@ -5697,3 +5697,178 @@ INFO: [ app_end ] --START--
 INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000506s ]
 INFO: [ app_end ] --END-- [ RunTime:0.000530s ]
 
+[ 2016-09-08T17:08:39+08:00 ] 127.0.0.1 /index.php/Admin/Database/index.html?_=1473325719516
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000329s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000451s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000483s ]
+SQL: SHOW TABLE STATUS [ RunTime:0.0008s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000040s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000076s ]
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005887s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005915s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000311s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000345s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000701s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000726s ]
+
+[ 2016-09-08T17:08:47+08:00 ] 127.0.0.1 /index.php/Admin/Database/export.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000248s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000292s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000322s ]
+SQL: OPTIMIZE TABLE `sc_auth_group`,`sc_auth_group_access`,`sc_auth_rule`,`sc_config`,`sc_manager` [ RunTime:1.5662s ]
+
+[ 2016-09-08T17:08:48+08:00 ] 127.0.0.1 /index.php/Admin/Database/index.html?_=1473325728011
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000235s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000289s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000317s ]
+SQL: SHOW TABLE STATUS [ RunTime:0.0006s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000036s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000069s ]
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004738s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004775s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000188s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000209s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000284s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000308s ]
+
+[ 2016-09-08T17:08:50+08:00 ] 127.0.0.1 /index.php/Admin/Database/export.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000226s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000284s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000312s ]
+SQL: REPAIR TABLE `sc_auth_group`,`sc_auth_group_access`,`sc_auth_rule`,`sc_config`,`sc_manager` [ RunTime:0.0004s ]
+
+[ 2016-09-08T17:08:50+08:00 ] 127.0.0.1 /index.php/Admin/Database/index.html?_=1473325730562
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000264s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000309s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000336s ]
+SQL: SHOW TABLE STATUS [ RunTime:0.0017s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000035s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000066s ]
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004930s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004954s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000179s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000200s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000305s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000329s ]
+
+[ 2016-09-08T17:08:53+08:00 ] 127.0.0.1 /index.php/Admin/Database/export.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000239s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000291s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000321s ]
+SQL: OPTIMIZE TABLE `sc_auth_group`,`sc_auth_group_access`,`sc_auth_rule`,`sc_config`,`sc_manager` [ RunTime:1.4245s ]
+
+[ 2016-09-08T17:08:54+08:00 ] 127.0.0.1 /index.php/Admin/Database/index.html?_=1473325734035
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000242s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000294s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000324s ]
+SQL: SHOW TABLE STATUS [ RunTime:0.0006s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000056s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000088s ]
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+NOTIC: [8] Undefined index: id E:\www\sc-csm\Application\Runtime\Cache\Admin\ccc7b197a1af74c5328156e7d3a8fe0b.php 第 26 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004936s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.004961s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000197s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000217s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000286s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000309s ]
+
+[ 2016-09-08T17:09:00+08:00 ] 127.0.0.1 /index.php/Admin/Database/frame/name/sc_auth_group_access.html?_=1473325740606
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000235s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000285s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000313s ]
+SQL: SHOW TABLES [ RunTime:0.0004s ]
+SQL: show columns from sc_auth_group_access [ RunTime:0.0036s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000030s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000055s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.003727s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.003759s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000188s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000207s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000302s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000333s ]
+
+[ 2016-09-08T17:09:02+08:00 ] 127.0.0.1 /index.php/Admin/Database/createSql/name/sc_auth_group_access.html?_=1473325742263
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000230s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000284s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000312s ]
+SQL: SHOW TABLES [ RunTime:0.0004s ]
+SQL: show create table sc_auth_group_access [ RunTime:0.0001s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000031s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000071s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.003452s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.003504s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000199s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000224s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000321s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000347s ]
+

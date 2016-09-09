@@ -1,5 +1,5 @@
 <?php if (!defined('THINK_PATH')) exit();?><div class="bjui-pageHeader">
-    <form id="pagerForm" data-toggle="ajaxsearch" action="/index.php/Admin/Config/index.html?_=1473325193605" method="post">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="/index.php/Admin/Config/index.html?group=5&amp;_=1473386303458" method="post">
         <button type="button" class="btn btn-success" data-icon="plus" data-toggle="dialog"
         data-options="{id:'config-add', url:'<?php echo U('Config/add');?>', title:'新增配置', mask:true, width:650, height:400}">新增配置</button>
         &nbsp;

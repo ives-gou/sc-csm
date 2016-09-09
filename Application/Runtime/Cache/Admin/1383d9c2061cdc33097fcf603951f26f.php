@@ -1,5 +1,5 @@
 <?php if (!defined('THINK_PATH')) exit();?><div class="bjui-pageContent">
-        <form action="/index.php/Admin/Config/add.html?_=1473323264559" method="post" data-toggle="ajaxform" data-reload-navtab="true">
+        <form action="/index.php/Admin/Config/add.html?_=1473381656717" method="post" data-toggle="ajaxform" data-reload-navtab="true">
             <table class="table table-bordered">
                 <tbody>
                     <tr>

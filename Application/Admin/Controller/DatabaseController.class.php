@@ -66,6 +66,26 @@ class DatabaseController extends AdminController{
 
     /* 数据库恢复 */
     public function import(){
-        $this->display();
+        if (IS_POST) {
+            $time = I('get.time', '');
+            if(empty($time)) return show(300, '请选择数据文件');
+            $result = $this->model->backupImport($time);
+            
+            if(!$result) return show(300, $this->model->getError());
+            return show(200, '还原成功');
+        } else {
+            $list = $this->model->backupList();
+            $this->assign('list',$list);
+            $this->display();
+        } 
+    }
+
+    public function delbak(){
+        $time = I('get.time', '');
+        if(empty($time)) return show(300, '请选择数据文件');
+        $result = $this->model->backupDel($time);
+        sleep(3);
+        if(!$result) return show(300, '备份文件删除失败');
+        return show(200, '删除成功');
     }
 }

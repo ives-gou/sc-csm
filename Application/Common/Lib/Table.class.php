@@ -148,8 +148,8 @@ class Table{
         $config = array(
             'path'     => realpath($path) . DIRECTORY_SEPARATOR,
             'part'     => C('DATA_BACKUP_PART_SIZE'),  //分卷大小:20971520
-            'compress' => C('DATA_BACKUP_COMPRESS_LEVEL'),  //开启压缩:1
-            'level'    => C('DATA_BACKUP_COMPRESS'),  //压缩级别(1-9):4
+            'compress' => C('DATA_BACKUP_COMPRESS'),  //开启压缩:1
+            'level'    => C('DATA_BACKUP_COMPRESS_LEVEL'),  //压缩级别(1-9):4
         );
 
         //检测文件锁
@@ -186,6 +186,85 @@ class Table{
         //删除文件锁
         unlink($lock);
         return true;
+    }
+
+
+    //获取备份文件列表
+    public function backupList(){
+        $fileDir = C('DATA_BACKUP_PATH');
+        if(!is_dir($fileDir)) return false;
+
+        $listFile = glob($fileDir . '*.sql*');
+        if(is_array($listFile)){
+            $list=array();
+            foreach ($listFile as $key => $value) {
+                $list[$key]['create'] = date('Y-m-d H:i:s',filemtime($value));
+                $list[$key]['size'] = filesize($value);
+                $value = end(explode('/', $value));
+                $list[$key]['name'] = $value;
+                $list[$key]['type'] = end(explode('.', $value));
+                $fileName = explode('-', $value);
+                $list[$key]['time'] = $fileName[0].'-'.$fileName[1];
+            }
+        }
+        return array_reverse($list);
+    }
+
+    //还原数据库
+    public function backupImport($time){
+        $name  = $time . '-*.sql*';
+        $fileDir  = C('DATA_BACKUP_PATH');
+        $path = realpath($fileDir) . DIRECTORY_SEPARATOR . $name;
+        $files = glob($path);
+        $list  = array();
+        foreach($files as $name){
+            $basename = basename($name);
+            $match = sscanf($basename, '%4s%2s%2s-%2s%2s%2s-%d');
+            $gz = preg_match('/^\d{8,8}-\d{6,6}-\d+\.sql.gz$/', $basename);
+            $list[$match[6]] = array($match[6], $name, $gz);
+        }
+        ksort($list);
+        //检测文件正确性
+        $last = end($list);
+        if(!count($list) === $last[0]){
+            $this->error = '备份文件可能已经损坏，请检查！';
+            return false;
+        }
+
+        //还原数据库
+        $start = 0;
+        foreach ($list as $value) {
+            $file = $value;
+            $config = array(
+                'path'     => realpath($fileDir) . DIRECTORY_SEPARATOR,
+                'compress' => $value[2],
+            );
+            $Database = new \Common\Lib\Database($file, $config);
+            do{
+                $start = $Database->import($start);
+                if($start === false){
+                    $this->error = '恢复数据失败，请稍后再试！';
+                    return false;
+                }elseif(is_array($start) && $start[0] != $start[1]){
+                    $start=$start[0];
+                }
+            }while($start != 0);
+        }
+        return true;
+
+    }
+
+    //删除备份文件
+    public function backupDel($time){
+        $name  = $time . '-*.sql*';
+        $fileDir = C('DATA_BACKUP_PATH');
+        $path  = $fileDir . $name;
+        array_map("unlink", glob($path));
+        if(empty(glob($path))){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 

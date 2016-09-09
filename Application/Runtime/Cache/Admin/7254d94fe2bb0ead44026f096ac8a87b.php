@@ -39,7 +39,7 @@
     }
 </style>
 <div class="bjui-pageHeader">
-    <button type="button" class="btn btn-success" data-icon="plus" data-toggle="dialog"
+    <button type="button" id="test123" class="btn btn-success" data-icon="plus" data-toggle="dialog"
     data-options="{id:'auth-rule-add', url:'<?php echo U('AuthRule/add');?>', title:'添加菜单', mask:true}">新增菜单</button>&nbsp;
     <button type="submit" class="btn btn-info" data-icon="sort-numeric-asc" form="sc-menu-index">更新排序</button>
     <button type="button" class="btn btn-orange pull-right" data-icon="refresh" onclick="$(this).navtab('refresh');" >刷新</button>

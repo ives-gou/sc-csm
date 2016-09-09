@@ -167,6 +167,17 @@ $(function() {
         today = new Date(today.setSeconds(today.getSeconds() + 1))
         $('#bjui-clock').html(today.formatDate('HH:mm:ss'))
     }, 1000)
+
+    $('.delcache').click(function() {
+        $.get("{:U('Index/delcache')}", function(r) {
+            if (r.statusCode == 300) {
+                $('body').alertmsg('error', r.message, {});
+            } else {
+                $('body').alertmsg('ok', r.message, {});
+            }
+        },'json');
+    });
+    
 })
 
 //菜单-事件
@@ -185,6 +196,7 @@ function MainMenuClick(event, treeId, treeNode) {
     else
         $(event.target).navtab({id:treeNode.tabid, url:treeNode.url, title:treeNode.name, fresh:treeNode.fresh, external:treeNode.external})
 }
+
 </script>
 <!-- for doc end -->
 </head>
@@ -212,7 +224,7 @@ function MainMenuClick(event, treeId, treeNode) {
                         <li><a href="{:U('Public/logout')}" class="red">&nbsp;<span class="glyphicon glyphicon-off"></span> 注销登陆</a></li>
                     </ul>
                 </li>
-                <li><a href="index.html" title="切换为列表导航(窄版)" style="background-color:#ff7b61;">列表导航栏(窄版)</a></li>
+                <li><a href="javascript:;" class="delcache"><i class="fa fa-leaf"></i>&nbsp;清除缓存</a></li>
                 <li class="dropdown"><a href="#" class="dropdown-toggle theme blue" data-toggle="dropdown" title="切换皮肤"><i class="fa fa-tree"></i></a>
                     <ul class="dropdown-menu" role="menu" id="bjui-themes">
                         <li><a href="javascript:;" class="theme_default" data-toggle="theme" data-theme="default">&nbsp;<i class="fa fa-tree"></i> 黑白分明&nbsp;&nbsp;</a></li>

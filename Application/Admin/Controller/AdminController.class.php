@@ -13,7 +13,7 @@ class AdminController extends Controller{
 	/* 初始化 */
 	public function _initialize(){
 		/* 用户是否登录 */
-		if (!is_login()) {
+		if (!($uid = is_login())) {
 			$this->redirect('Public/login');
 		}
 
@@ -24,7 +24,39 @@ class AdminController extends Controller{
             S('ADMIN_CONFIG',$admin_config);
         }
         C($admin_config);
+
+         //判断超级管理员
+        $admin_super = in_array($uid, C('ADMIN_SUPER'));
+        if (!$admin_super) {
+        	//检测动态配置中的规则
+            $config_rule = $this->checkConfigRule();
+            if($config_rule === false ){
+                $this->error('403:禁止访问');
+            }elseif($config_rule === null){
+                $rule = MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME;
+                if( !check_auth($rule, $uid) ){
+                    return show(300, '未授权访问!');
+                }
+            }
+        }
+        
 	}
+
+	//检测动态配置中是否为允许/禁止访问的规则
+    private function checkConfigRule($rule){
+        if(!isset($rule)) $rule=CONTROLLER_NAME;
+
+        $deny  = C('DENY_VISIT');
+        $allow = C('ALLOW_VISIT');
+        
+        if ( !empty($deny)  && in_array($rule,$deny) ) {
+            return false;
+        }
+        if ( !empty($allow) && in_array($rule,$allow) ) {
+            return true;
+        }
+        return null;//需要检测节点权限
+    }
 
 
 

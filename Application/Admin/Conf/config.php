@@ -12,6 +12,10 @@ return array(
 
     /* 用户信息 */
     'AUTH_KEY'  =>  'mid',
+    'NO_CHECK_NODES' => array(
+        '0' => 'Admin/Index/index',
+        '1' => 'Admin/Index/index_layout',
+    ),
 
     //动态配置中所需参数
     'CONFIG_GROUPS'    => array(

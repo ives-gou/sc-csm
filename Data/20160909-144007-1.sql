@@ -17,7 +17,6 @@ CREATE TABLE `sc_auth_group` (
 -- Records of `sc_auth_group`
 -- -----------------------------
 INSERT INTO `sc_auth_group` VALUES ('1', '测试', '97', '阿斯顿撒旦', '1', '5,1,2,3,6,7,8,9,10,11,12');
-INSERT INTO `sc_auth_group` VALUES ('3', '管理员组', '99', '', '1', '');
 INSERT INTO `sc_auth_group` VALUES ('4', '网站编辑', '98', '编辑测试123', '1', '5,6,7,8');
 
 -- -----------------------------
@@ -115,7 +114,7 @@ INSERT INTO `sc_config` VALUES ('11', 'DATA_BACKUP_PATH', '2', '数据库备份�
 INSERT INTO `sc_config` VALUES ('12', 'HOOKS_TYPE', '4', '钩子的类型', '5', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1473067184', '1473067184', '1', '1:视图\r\n2:控制器', '99');
 INSERT INTO `sc_config` VALUES ('13', 'DATA_BACKUP_PART_SIZE', '2', '数据库备份卷大小', '5', '', '该值用于限制压缩后的分卷最大长度。单位：B；建议设置20M', '1473067242', '1473067242', '1', '2097152000', '99');
 INSERT INTO `sc_config` VALUES ('14', 'AUTH_CONFIG', '4', 'Auth配置', '5', '', '自定义Auth.class.php类配置', '1473067292', '1473125242', '1', 'AUTH_ON:1\r\nAUTH_TYPE:2', '99');
-INSERT INTO `sc_config` VALUES ('15', 'DATA_BACKUP_COMPRESS', '5', '数据库备份文件是否启用压缩', '5', '0:不压缩,\r\n1:启用压缩', '压缩备份文件需要PHP环境支持gzopen,gzwrite函数', '1473122932', '1473130314', '1', '0', '99');
+INSERT INTO `sc_config` VALUES ('15', 'DATA_BACKUP_COMPRESS', '5', '数据库备份文件是否启用压缩', '5', '0:不压缩,\r\n1:启用压缩', '压缩备份文件需要PHP环境支持gzopen,gzwrite函数', '1473122932', '1473130314', '1', '1', '99');
 INSERT INTO `sc_config` VALUES ('16', 'DATA_BACKUP_COMPRESS_LEVEL', '5', '数据库备份文件压缩级别', '5', '1:普通,\r\n4:一般,\r\n9:最高', '数据库备份文件的压缩级别，该配置在开启压缩时生效', '1473122974', '1473130325', '1', '9', '99');
 INSERT INTO `sc_config` VALUES ('17', 'DEVELOP_MODE', '5', '开启开发者模式', '5', '0:关闭,\r\n1:开启', '是否开启开发者模式', '1473123017', '1473130330', '1', '1', '99');
 INSERT INTO `sc_config` VALUES ('18', 'ADMIN_ALLOW_IP', '3', '后台允许访问IP', '5', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1473123055', '1473123055', '1', '', '99');
@@ -148,4 +147,3 @@ CREATE TABLE `sc_manager` (
 -- -----------------------------
 INSERT INTO `sc_manager` VALUES ('1', 'admin', '管理员', 'bf718be634272ecc25bf48246206ba64', '664709989@qq.com', '18281774033', '0', '0', '1473381624', '2130706433', '1473041671', '1');
 INSERT INTO `sc_manager` VALUES ('5', 'root', '测试1', 'bf718be634272ecc25bf48246206ba64', '', '', '1472785914', '2130706433', '0', '0', '0', '1');
-INSERT INTO `sc_manager` VALUES ('6', 'admin2', '管理员测试', 'bf718be634272ecc25bf48246206ba64', '', '', '1473041576', '2130706433', '0', '0', '0', '1');

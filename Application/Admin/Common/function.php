@@ -31,6 +31,23 @@ function check_verify($code, $id = ''){
     return $verify->check($code, $id);
 }
 
+//检测Auth中允许访问的节点
+function check_auth($rule, $uid=null){
+	//不需要检测的权限节点
+	if (in_array($rule, C('NO_CHECK_NODES'))) {
+		return true;
+	}
+	if (is_null($uid)) $uid = is_login();
+    static $Auth = null;
+    if (!$Auth) {
+        $Auth = new \Think\Auth();
+    }
+    if(!$Auth->check($rule, $uid, 1)){
+        return false;
+    }
+    return true;
+}
+
 /**
  * 获取配置的类型
  * @param string $type 配置类型

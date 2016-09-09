@@ -6,7 +6,7 @@ function authRule_NodeClick(e, treeId, treeNode) {
 }
 </script>
 <div class="bjui-pageContent">
-        <form action="/index.php/Admin/AuthRule/add.html?_=1473314118400" data-toggle="ajaxform" data-reload-navtab="true">
+        <form action="/index.php/Admin/AuthRule/add.html?_=1473413015113" data-toggle="ajaxform" data-reload-navtab="true">
         <table class="table">
             <tbody>
                 <tr>

@@ -35,6 +35,8 @@ class PublicController extends Controller{
     /* 注销登录 */
     public function logout(){
         session(null);
+        //记录行为
+        //action_log('user_login', 'Manager', $info['id'], $info['id']);
         $this->redirect('Public/login');
     }
 

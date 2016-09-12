@@ -1,0 +1,59 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="__SELF__" method="post">
+        <a href="{:U('dellog',array('id' => 0))}" class="btn btn-warning" data-toggle="doajax" data-confirm-msg="确定要清空吗？">清空日志</a>
+        &nbsp;&nbsp;
+        <button type="submit" form="actionform" class="btn-primary">删除选中</button>&nbsp;
+
+        <button type="button" class="btn btn-orange pull-right" data-icon="refresh" onclick="$(this).navtab('refresh');" >刷新</button>
+    </form>
+</div>
+
+<div class="bjui-pageContent tableContent">
+    <form id="actionform" action="{:U('dellog')}" method="post" data-toggle="ajaxform" data-reload-navtab="true">
+    <table class="table table-hover"  data-nowrap="true">
+        <thead>
+            <tr>
+                <th width="16"><input type="checkbox" class="checkboxCtrl" data-toggle="icheck" data-group="ids[]"></th>
+                <th width="50">ID</th>
+                <th>行为名称</th>
+                <th>执行者</th>
+                <th>IP</th>
+                <th>执行时间</th>
+                <th width="150">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name="list" item="v" >
+            <tr data-id="{$v.id}">
+                <td><input type="checkbox" name="ids[]" value="{$v.id}" data-toggle="icheck"></td>
+                <td>{$v.id}</td>
+                <td>{$v.title}</td>
+                <td>{$v.nickname}</td>
+                <td>{$v.action_ip|long2ip}</td>
+                <td>{$v.create_time|date='Y-m-d H:i',###}</td>
+                <td>
+                    <a href="{:U('dellog',array('id' => $v['id']))}" class="btn btn-danger" data-toggle="doajax" data-confirm-msg="确定要删除吗？">删除日志</a>
+                </td>
+            </tr>
+           </foreach>
+        </tbody>
+    </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages">
+        <span>每页&nbsp;</span>
+        <div class="selectPagesize">
+            <select data-toggle="selectpicker" data-toggle-change="changepagesize">
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="120">120</option>
+                <option value="150">150</option>
+            </select>
+        </div>
+        <span>&nbsp;条，共 {$count} 条</span>
+    </div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$count}" data-page-size="{$pageSize}" data-page-current="1">
+    </div>
+</div>
+

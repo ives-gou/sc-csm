@@ -34,6 +34,9 @@ class ManagerModel extends Model{
         $this->updateLogin($info['id']);
         session('userinfo', $info);
         session(C('AUTH_KEY'), $info['id']);
+        //记录行为
+        action_log('user_login', 'Manager', $info['id'], $info['id']);
+
         return true;
     }
 

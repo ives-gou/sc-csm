@@ -85,7 +85,7 @@ class AdminController extends Controller{
 	public function edit(){
 		$id = I('get.id', 0, 'intval');
 		if ($id == 0) return show(300, '参数类型错误');
-		$info = $this->model->getInfo($id);
+		$info = $this->model->where('id = '.$id)->find();
 		if (empty($info)) return show(300, '获取数据失败');
 		$this->assign('info', $info); 
 		$this->display();

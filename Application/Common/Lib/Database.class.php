@@ -1,90 +1,89 @@
 <?php
-//使用说明
-// $config = array(
-//     'path'     => 'E:\Wamp\www\Shanyu\Backups\',
-//     'part'     => 20971520,//分卷大小:20971520
-//     'compress' => 0,//开启压缩:1
-//     'level'    => 4,//压缩级别(1-9):4
-// );
-// $file = array(
-//     'name' => date('Ymd-His', NOW_TIME),
-//     'part' => 1,
-// );
-//$Database = new \Lib\File\Database($file, $config);
-//$start  = $Database->backup('sy_admin', 0); //返回值0:备份完成,1000:数据库超过一千行继续备份本表,false:备份失败
+/**
+ * 数据库备份还原管理类
+ * @author ：失策
+ * Time    : 2016年09月16日 
+ * QQ      : 664709989   
+ * Email   : 664709989@qq.com
+ * Site    : http://www.iamgpj.com/
+ * ---------------------------------------------------------
+ * 使用说明
+ * $config = array(
+ *     'path'     => '.\Backups\',  //备份路径
+ *     'part'     => 20971520,      //分卷大小:20971520
+ *     'compress' => 0,             //开启压缩:1
+ *     'level'    => 4,             //压缩级别(1-9):4
+ * );
+ * 
+ * $file = array(
+ *    'name' => date('Ymd-His', NOW_TIME),
+ *    'part' => 1,
+ * );
+ * ---------------------------------------------------------
+ */
 
 namespace Common\Lib;
 use Think\Db;
-
-//数据导出模型
 class Database{
-    /**
-     * 文件指针
-     * @var resource
-     */
-    private $fp;
+    /* 相关配置 */
+    private $config = array();
 
-    /**
-     * 备份文件信息 part - 卷号，name - 文件名
-     * @var array
-     */
-    private $file;
+    /* 备份文件信息 part - 卷号，name - 文件名 */
+    private $file = array();
 
-    /**
-     * 当前打开文件大小
-     * @var integer
-     */
-    private $size = 0;
+    /* 文件资源句柄 */
+    private $fh = null;
 
-    /**
-     * 备份配置
-     * @var integer
-     */
-    private $config;
+    private $filename = '';
 
-    /**
-     * 数据库备份构造方法
-     * @param array  $file   备份或还原的文件信息
-     * @param array  $config 备份配置信息
-     * @param string $type   执行类型，export - 备份数据， import - 还原数据
-     */
-    public function __construct($file, $config, $type = 'export'){
-        $this->file   = $file;
+    /* 错误信息 */
+    private $error = '';
+    
+    public function __construct($file=array(), $config=array()){
+        $this->file = $file;
         $this->config = $config;
     }
 
     /**
-     * 打开一个卷，用于写入数据
-     * @param  integer $size 写入数据的大小
+     * 获取错误信息
+     * @return [string] 
      */
-    private function open($size){
-        if($this->fp){
-            $this->size += $size;
-            if($this->size > $this->config['part']){
-                $this->config['compress'] ? @gzclose($this->fp) : @fclose($this->fp);
-                $this->fp = null;
-                $this->file['part']++;
-                session('backup_file', $this->file);
-                $this->create();
-            }
-        } else {
-            $backuppath = $this->config['path'];
-            $filename   = "{$backuppath}{$this->file['name']}-{$this->file['part']}.sql";
-            if($this->config['compress']){
-                $filename = "{$filename}.gz";
-                $this->fp = @gzopen($filename, "a{$this->config['level']}");
-            } else {
-                $this->fp = @fopen($filename, 'a');
-            }
-            $this->size = filesize($filename) + $size;
+    public function getError(){
+        return $this->error;
+    }
+
+    /**
+     * 写入SQL语句
+     * @param  string $sql 要写入的SQL语句
+     * @return boolean     true - 写入成功，false - 写入失败！
+     */
+    private function write($sql){
+        $size = strlen($sql);
+        /* 由于压缩原因，无法计算出压缩后的长度，这里假设压缩率为50%，
+         * 一般情况压缩率都会高于50%；*/
+        $size = $this->config['compress'] ? $size / 2 : $size;
+
+       
+        if (!$this->filename) {
+            $path = $this->config['path'];
+            $this->filename = "{$path}{$this->file['name']}_{$this->file['part']}.sql"; 
         }
+
+        /* 判断是否重新打开一个卷 */
+        if (is_null($this->fh) || (filesize($this->filename) + $size) > $this->config['part']) {
+            $result = $this->open();
+            if (!$result) return false;
+            $this->filename = '';
+        }
+        
+        return $this->config['compress'] ? gzwrite($this->fh, $sql) : fwrite($this->fh, $sql);  
     }
 
     /**
      * 写入初始数据
      * @return boolean true - 写入成功，false - 写入失败
      */
-    public function create(){
+    private function create(){
         $sql  = "-- -----------------------------\n";
         $sql .= "-- Think MySQL Data Transfer \n";
         $sql .= "-- \n";
@@ -100,117 +99,135 @@ class Database{
     }
 
     /**
-     * 写入SQL语句
-     * @param  string $sql 要写入的SQL语句
-     * @return boolean     true - 写入成功，false - 写入失败！
+     * 打开一个文件资源
+     * @param  [string] $filename [文件名]
+     * @return [resource]
      */
-    private function write($sql){
-        $size = strlen($sql);
+    private function open(){
         
-        //由于压缩原因，无法计算出压缩后的长度，这里假设压缩率为50%，
-        //一般情况压缩率都会高于50%；
-        $size = $this->config['compress'] ? $size / 2 : $size;
-        
-        $this->open($size); 
-        return $this->config['compress'] ? @gzwrite($this->fp, $sql) : @fwrite($this->fp, $sql);
+        if (!is_null($this->fh)) {
+            $this->config['compress'] ? gzclose($this->fh) : fclose($this->fh);
+        }
+
+        if ($this->config['compress']) {
+            $this->fh = gzopen($this->filename.'.gz', 'a'.$this->config['level']);
+        } else {
+            $this->fh = fopen($this->filename, 'a');
+        }
+
+        if ($this->fh === false) {
+            $this->error = '资源句柄打开失败';
+            return false;
+        } 
+        $this->create();
+        $this->file['part']++;
+        return true; 
+    }
+
+    /**
+     * 备份数据表
+     * @param  [array]   $tables  数据表
+     * @return [boolean]         
+     */
+    public function backup($tables){
+        //创建DB对象
+        $db = Db::getInstance();
+        foreach ($tables as $table) {
+            //备份表结构
+            if (!$this->backup_frame($db, $table)) return false;
+            //备份表数据
+            if (!$this->backup_datas($db, $table)) return false;
+        }
+        return true;
+    }
+
+    /**
+     * 还原数据表
+     * @param  [string]   $time  备份时间
+     * @return [boolean]         
+     */
+    public function import($time){
+        $db = Db::getInstance();
+        $fileDir = realpath(C('DATA_BACKUP_PATH')) . DIRECTORY_SEPARATOR;
+        $listFile = glob($fileDir . $time . '_*.sql*');
+
+        if (!empty($listFile)) {
+            foreach ($listFile as $filename) {
+                $file = substr($filename, -2) == 'gz' ? gzfile($filename) : file($filename);
+                foreach ($file as $row) { 
+                    if (substr(trim($row), 0, 2) == '--') continue;
+                    $sql .= $row;
+                    if (substr(rtrim($row, "\n"), -1) == ';') {
+                        $result = $db->execute($sql);
+                        if ($result === false) {
+                            $this->error = $row .'错误';
+                            return false;
+                        }
+                        $sql = '';
+                    }   
+                }
+            }
+            return true;
+        }
     }
 
     /**
      * 备份表结构
-     * @param  string  $table 表名
-     * @param  integer $start 起始行数
-     * @return boolean        false - 备份失败
+     * @param  [resouce] $db      数据库资源
+     * @param  [string]  $table   数据表名
+     * @return [boolean]
      */
-    public function backup($table, $start){
-        //创建DB对象
-        $db = Db::getInstance();
-
-        //备份表结构
-        if(0 == $start){
-            $result = $db->query("SHOW CREATE TABLE `{$table}`");
-            $sql  = "\n";
-            $sql .= "-- -----------------------------\n";
-            $sql .= "-- Table structure for `{$table}`\n";
-            $sql .= "-- -----------------------------\n";
-            $sql .= "DROP TABLE IF EXISTS `{$table}`;\n";
-            $sql .= trim($result[0]['create table']) . ";\n\n";
-            if(false === $this->write($sql)){
-                return false;
-            }
+    private function backup_frame($db, $table){
+        $result = $db->query("SHOW CREATE TABLE `{$table}`");
+        $sql  = "\n";
+        $sql .= "-- -----------------------------\n";
+        $sql .= "-- Table structure for `{$table}`\n";
+        $sql .= "-- -----------------------------\n";
+        $sql .= "DROP TABLE IF EXISTS `{$table}`;\n";
+        $sql .= trim($result[0]['create table']) . ";\n\n";
+        if(!$this->write($sql)){
+            $this->error = '备份数据表 '.$table.' 结构出错';
+            return false;
         }
+        return true;
+    }
 
+    /**
+     * 备份表数据
+     * @param  [resouce] $db      数据库资源
+     * @param  [string]  $table   数据表名
+     * @return [boolean]
+     */
+    private function backup_datas($db, $table){
         //数据总数
         $result = $db->query("SELECT COUNT(*) AS count FROM `{$table}`");
         $count  = $result['0']['count'];
-            
+
         //备份表数据
         if($count){
             //写入数据注释
-            if(0 == $start){
-                $sql  = "-- -----------------------------\n";
-                $sql .= "-- Records of `{$table}`\n";
-                $sql .= "-- -----------------------------\n";
-                $this->write($sql);
-            }
-
+            $sql  = "-- -----------------------------\n";
+            $sql .= "-- Records of `{$table}`\n";
+            $sql .= "-- -----------------------------\n";
+            $this->write($sql);
             //备份数据记录
-            $result = $db->query("SELECT * FROM `{$table}` LIMIT {$start}, 1000");
+            $result = $db->query("SELECT * FROM `{$table}`");
             foreach ($result as $row) {
-                $row = array_map('addslashes', $row);
-                $sql = "INSERT INTO `{$table}` VALUES ('" . str_replace(array("\r","\n"),array('\r','\n'),implode("', '", $row)) . "');\n";
-                if(false === $this->write($sql)){
+                $sql = "INSERT INTO `{$table}` VALUES ('" .implode("', '", $row) . "');\n";
+                if($this->write($sql) === false){
+                    $this->error = $sql.' 写入失败';
                     return false;
                 }
             }
-
-            //还有更多数据
-            if($count > $start + 1000){
-                return array($start + 1000, $count);
-            }
         }
-
-        //备份下一表
-        return 0;
-    }
-
-    public function import($start){
-        //还原数据
-        $db = Db::getInstance();
-
-        if($this->config['compress']){
-            $gz   = gzopen($this->file[1], 'r');
-            $size = 0;
-        } else {
-            $size = filesize($this->file[1]);
-            $gz   = fopen($this->file[1], 'r');
-        }
-        
-        $sql  = '';
-        if($start){
-            $this->config['compress'] ? gzseek($gz, $start) : fseek($gz, $start);
-        }
-        
-        for($i = 0; $i < 1000; $i++){
-            $sql .= $this->config['compress'] ? gzgets($gz) : fgets($gz); 
-            if(preg_match('/.*;$/', trim($sql))){
-                if(false !== $db->execute($sql)){
-                    $start += strlen($sql);
-                } else {
-                    return false;
-                }
-                $sql = '';
-            } elseif ($this->config['compress'] ? gzeof($gz) : feof($gz)) {
-                return 0;
-            }
-        }
-
-        return array($start, $size);
+        return true;
     }
 
     /**
      * 析构方法，用于关闭文件资源
      */
     public function __destruct(){
-        $this->config['compress'] ? @gzclose($this->fp) : @fclose($this->fp);
+        $this->config['compress'] ? gzclose($this->fh) : fclose($this->fh);
     }
+
 }

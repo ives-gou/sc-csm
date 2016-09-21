@@ -20,9 +20,9 @@
                 <td>{$v.create}</td>
                 <td>
                     <button type="button" class="btn btn-info" data-toggle="doajax" data-confirm-msg="确定要还原吗"
-                    data-url="{:U(import,array('time'=>$v['time']))}">还原数据</button>
+                    data-url="{:U(import,array('name'=>$v['name']))}">还原数据</button>
                     <button type="button" class="btn btn-danger" data-toggle="doajax" data-confirm-msg="确定要删除吗"
-                    data-url="{:U('delbak',array('time'=>$v['time']))}">删除数据</button>
+                    data-url="{:U('delbak',array('name'=>$v['name']))}">删除数据</button>
                 </td>
             </tr>
            </foreach>

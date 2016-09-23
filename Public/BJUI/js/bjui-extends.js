@@ -20,7 +20,8 @@
     
     $.fn.extend({
         /**
-         * @param {Object} op: {type:GET/POST, url:ajax请求地址, data:ajax请求参数列表, callback:回调函数 }
+         * @param {Object} op: {type:GET/POST, url:ajax请求地址, data:ajax请求参数列表 callback:回调函数 }
+         * async:同步异步，（失策加）
          */
         ajaxUrl: function(op) {
             var $this = $(this)
@@ -36,6 +37,7 @@
                 url      : op.url,
                 data     : op.data || {},
                 cache    : false,
+                async    : op.async === 1 ? false : true,
                 dataType : 'html',
                 timeout  : BJUI.ajaxTimeout,
                 success  : function(response) {

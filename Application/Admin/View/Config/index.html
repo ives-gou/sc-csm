@@ -1,7 +1,7 @@
 <div class="bjui-pageHeader">
     <form id="pagerForm" data-toggle="ajaxsearch" action="__SELF__" method="post">
         <button type="button" class="btn btn-success" data-icon="plus" data-toggle="dialog"
-        data-options="{id:'config-add', url:'{:U('Config/add')}', title:'新增配置', mask:true, width:650, height:400}">新增配置</button>
+        data-options="{id:'config-add', url:'{:U('Config/add')}', title:'新增配置', width:650, height:400}">新增配置</button>
         &nbsp;
         <label>配置名称：</label><input type="text" value="{$name}" name="name" class="form-control" size="15">&nbsp;   
         <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
@@ -17,7 +17,7 @@
         </li>
         <foreach name="Think.config.CONFIG_GROUPS" item="v">
             <li <if condition="$group eq $key" >class="active"</if>>
-                <a href="{:U('Config/index')}?group={$key}" role="tab" data-toggle="navtab" data-title="全部配置">{$v}</a>
+                <a href="{:U('index', array('group' => $key))}" role="tab" data-toggle="navtab" data-title="全部配置">{$v}</a>
             </li>
         </foreach>
     </ul>
@@ -48,8 +48,8 @@
                             <td>{$v.sort}</td>
                             <td>{$v.status|statusBtn=$v['id'],###}</td>
                             <td>
-                                <button type="button" class="btn btn-green" data-toggle="dialog" data-icon="pencil" data-options="{id:'config-edit{$v.id}', url:'{:U('Config/edit')}?id={$v.id}', title:'编辑菜单', mask:true, width:650, height:400}" title="编辑" ></button>
-                                <button type="button" class="btn btn-red" data-url="{:U('Config/del')}?id={$v.id}" data-icon="trash" data-toggle="doajax" data-confirm-msg="确定要删除吗？" title="删除"></button>
+                                <button type="button" class="btn btn-green" data-toggle="dialog" data-icon="pencil" data-options="{id:'config-edit{$v.id}', url:'{:U('edit', array('id' => $v['id']))}', title:'编辑菜单', width:650, height:400}" title="编辑" ></button>
+                                <button type="button" class="btn btn-red" data-url="{:U('del', array('id' => $v['id']))}" data-icon="trash" data-toggle="doajax" data-confirm-msg="确定要删除吗？" title="删除"></button>
                             </td>
                         </tr>
                     </foreach>

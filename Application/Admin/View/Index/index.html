@@ -31,9 +31,9 @@
 <script src="__BJUI__/other/jquery.iframe-transport.js"></script>    
 <![endif]-->
 <!-- BJUI.all 分模块压缩版 -->
-<script src="__BJUI__/js/bjui-all.js"></script>
+<!-- <script src="__BJUI__/js/bjui-all.js"></script> -->
 <!-- 以下是B-JUI的分模块未压缩版，建议开发调试阶段使用下面的版本 -->
-<!--
+
 <script src="__BJUI__/js/bjui-core.js"></script>
 <script src="__BJUI__/js/bjui-regional.zh-CN.js"></script>
 <script src="__BJUI__/js/bjui-frag.js"></script>
@@ -60,7 +60,7 @@
 <script src="__BJUI__/js/bjui-theme.js"></script>
 <script src="__BJUI__/js/bjui-initui.js"></script>
 <script src="__BJUI__/js/bjui-plugins.js"></script>
--->
+
 <!-- plugins -->
 <script src="__JS__/jquery.treetable.js"></script>
 <!-- swfupload for uploadify && kindeditor -->
@@ -215,16 +215,23 @@ function MainMenuClick(event, treeId, treeNode) {
         <nav id="bjui-navbar-collapse">
             <ul class="bjui-navbar-right">
                 <li class="datetime"><div><span id="bjui-date"></span> <span id="bjui-clock"></span></div></li>
-                <li><a href="#">消息 <span class="badge">4</span></a></li>
+                <li><a href="#">欢迎您: <span class="badge">{$nickname}</span></a></li>
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">我的账户 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="changepwd.html" data-toggle="dialog" data-id="changepwd_page" data-mask="true" data-width="400" data-height="260">&nbsp;<span class="glyphicon glyphicon-lock"></span> 修改密码&nbsp;</a></li>
-                        <li><a href="#">&nbsp;<span class="glyphicon glyphicon-user"></span> 我的资料</a></li>
+                        <li>
+                            <a href="#" data-toggle="dialog" data-options="{id:'index-changepwd', url:'{:U('changepwd')}', mask:true, width:500, height:260}">&nbsp;<span class="glyphicon glyphicon-lock"></span> 修改密码&nbsp;
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="dialog" data-options="{id:'index-myinfo', url:'{:U('myinfo')}', mask:true}">&nbsp;<span class="glyphicon glyphicon-user"></span> 我的资料
+                            </a>
+                        </li>
                         <li class="divider"></li>
                         <li><a href="{:U('Public/logout')}" class="red">&nbsp;<span class="glyphicon glyphicon-off"></span> 注销登陆</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:;" class="delcache"><i class="fa fa-leaf"></i>&nbsp;清除缓存</a></li>
+               
                 <li class="dropdown"><a href="#" class="dropdown-toggle theme blue" data-toggle="dropdown" title="切换皮肤"><i class="fa fa-tree"></i></a>
                     <ul class="dropdown-menu" role="menu" id="bjui-themes">
                         <li><a href="javascript:;" class="theme_default" data-toggle="theme" data-theme="default">&nbsp;<i class="fa fa-tree"></i> 黑白分明&nbsp;&nbsp;</a></li>

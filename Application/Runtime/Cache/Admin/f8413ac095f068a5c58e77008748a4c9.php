@@ -5,7 +5,7 @@
         </h4>
         <div style="float:left; width:157px;">
             <div class="alert alert-info" role="alert" style="margin:0 0 5px; padding:10px;">
-                <img src="/Public/Admin/img/logo.jpg" alt="..." width="135" height="135">
+                <img src="/Public/Admin/img/iamgpj3.png" alt="..." width="135" height="135">
             </div>
         </div>
         <div style="margin-left:170px; margin-top:22px; padding-left:6px;">

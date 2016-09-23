@@ -53,14 +53,23 @@ class ActionController extends AdminController{
 		$offset = ($pageCurrent -  1) * $pageSize;
 
 		$list = M('ActionLog')->alias('a')
-				->join('sc_action b on a.action_id = b.id')
-				->join('sc_manager c on a.user_id = c.id')
-				->field('a.id, b.title, c.nickname, a.action_ip, a.create_time')
+				->join('LEFT JOIN sc_manager b ON a.user_id = b.id')
+				->field('a.id, a.name, a.remark, a.model, b.username, b.nickname, a.action_ip, a.create_time')
 				->limit($offset, $pageSize)
+				->order('a.create_time desc')
 				->select();
 
 		$count = M('ActionLog')->count();
-
+		if (!empty($list)) {
+			$ipobj = new \Org\Net\IpLocation('UTFWry.dat'); // 实例化类 参数表示IP地址库文件
+			foreach ($list as $k => $v) {
+				$list[$k]['username'] = $v['username'] ?: '未登录!';
+				$list[$k]['nickname'] = $v['nickname'] ?: '未登录!';
+				$list[$k]['action_ip'] = ipInfo($v['action_ip'], $ipobj);
+				$list[$k]['create_time'] = date('Y-m-d H:i', $v['create_time']);
+			}
+		}
+		$this->assign('offset', $offset);
 		$this->assign('list', $list);
 		$this->assign('pageSize', $pageSize);
 		$this->assign('count', $count);
@@ -69,9 +78,10 @@ class ActionController extends AdminController{
 
 	public function dellog(){
 		if (IS_POST) {
-			$ids = I('post.ids');
+			$ids = I('get.ids');
 			if (empty($ids)) return show(300, '请选择要删除的日志');
-			$result = M('ActionLog')->where(array('id' => array('in', $ids)))->delete();
+			$idsArr = explode(',', $ids);
+			$result = M('ActionLog')->where(array('id' => array('in', $idsArr)))->delete();
 		} else {
 			$id = I('get.id', 0, 'intval');
 			if ($id == 0) {

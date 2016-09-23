@@ -14,9 +14,28 @@ class IndexController extends AdminController {
                 'status' => 1,
                 'menutype' => array('neq', 3),
             );
+        //判断是否为超级管理员
+        $uid = is_login();
+        if (!in_array($uid, C('ADMIN_SUPER'))) {
+            //获取自身角色
+            $groups = M('AuthGroupAccess')->where('uid = '.$uid)->group('uid')->getField('GROUP_CONCAT(group_id)');
+            //查询角色权限
+            $gwhere = array('status' => 1, 'id' => array('in', explode(',', $groups)));
+            $rulesArr = M('AuthGroup')->where($gwhere)->field('rules')->select();
+            $rules = array();
+            foreach ($rulesArr as $v) {
+                $rules = array_merge($rules, explode(',', $v['rules']));
+            }
+            $rules = array_unique($rules);
+            if (!empty($rules)) {
+                $map['id'] = array('in', $rules);
+            }
+        }
         $menuList = D('AuthRule')->getMenu($map);
         $menuList = \Common\Lib\ArrayTree::list2tree($menuList);
-       
+        
+        $userinfo = session('userinfo');
+        $this->assign('nickname', $userinfo['nickname']);
         $this->assign('menuList', $menuList);
         $this->display();
     }
@@ -65,6 +84,53 @@ class IndexController extends AdminController {
         $this->assign('server_info', $server_info);
         $this->assign('extensions_list', $extensions_list);
         $this->display();
+    }
+
+    //修改密码
+    public function changepwd(){
+        if (IS_POST) {
+            $post = I('post.', '', 'trim');
+            if (empty($post['old_password'])) return show(300, '旧密码不能为空');
+            if (empty($post['password'])) return show(300, '新密码不能为空');
+            if (strlen($post['password']) < 6) return show(300, '密码必须 >= 6位数');
+            if ($post['password'] != $post['password2']) return show(300, '确认密码错误');
+
+            $id = is_login();
+            $manager = D('Manager');
+            $password = $manager->where('id = '.$id)->getField('password');
+            if ($password != $manager->pw_md5($post['old_password'])) {
+                return show(300, '密码输入错误');
+            } else {
+                $new_pwd = $manager->pw_md5($post['password']);
+                $result = $manager->where('id = '.$id)->setField('password', $new_pwd);
+                if (!$result) return show(300, '密码修改失败');
+                return show(200, '密码修改成功', true);
+            }
+        } else {
+            $this->display();
+        }
+    }
+
+    //我的资料
+    public function myinfo(){
+        if (IS_POST) {
+            $post = I('post.');
+            if (empty($post['nickname'])) return show(300, '用户昵称/姓名不能为空');
+            if (empty($post['password'])) return show(300, '密码必须');
+            $manager = D('Manager');
+            $password = $manager->where('id = '.$post['id'])->getField('password');
+            if ($password != $manager->pw_md5($post['password'])) {
+                return show(300, '密码输入错误');
+            } else {
+                $result = $manager->editRow($post);
+                if (!$result) return show(300, '资料修改失败');
+                return show(200, '资料修改成功', true);
+            }
+        } else {
+            $info = M('Manager')->where('id = '.is_login())->find();
+            $this->assign('info', $info);
+            $this->display();
+        }
     }
 
     public function phpinfo(){

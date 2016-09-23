@@ -75,23 +75,26 @@ class DatabaseController extends AdminController{
             
             if(!$result) return show(300, $db->getError());
             return show(200, '还原成功');
-        } else {
-
-            $fileDir = C('DATA_BACKUP_PATH');
-            $listFile = glob($fileDir . '*.sql*');
-            if(is_array($listFile)){
-                $list=array();
-                foreach ($listFile as $key => $value) {
-                    $list[$key]['create'] = date('Y-m-d H:i:s',filemtime($value));
-                    $list[$key]['size'] = filesize($value);
-                    $value = end(explode('/', $value));
-                    $list[$key]['name'] = $value;
-                    $list[$key]['type'] = end(explode('.', $value));
-                }
-            }
-            $this->assign('list',$list);
-            $this->display();
         } 
+        return show(300, '提交方式错误');
+    }
+
+    /* 备份列表 */
+    public function importList(){
+        $fileDir = C('DATA_BACKUP_PATH');
+        $listFile = glob($fileDir . '*.sql*');
+        if(is_array($listFile)){
+            $list=array();
+            foreach ($listFile as $key => $value) {
+                $list[$key]['create'] = date('Y-m-d H:i:s',filemtime($value));
+                $list[$key]['size'] = filesize($value);
+                $value = end(explode('/', $value));
+                $list[$key]['name'] = $value;
+                $list[$key]['type'] = end(explode('.', $value));
+            }
+        }
+        $this->assign('list',$list);
+        $this->display();
     }
 
     /**
@@ -132,9 +135,9 @@ class DatabaseController extends AdminController{
         }
         $config = array(
               'path'     => realpath($path) . DIRECTORY_SEPARATOR,  //备份路径
-              'part'     => 20971520,      //分卷大小:20971520
-              'compress' => 1,             //开启压缩:1
-              'level'    => 4,             //压缩级别(1-9):4
+              'part'     => C('DATA_BACKUP_PART_SIZE'),      //分卷大小:20971520
+              'compress' => C('DATA_BACKUP_COMPRESS'),             //开启压缩:1
+              'level'    => C('DATA_BACKUP_COMPRESS_LEVEL'),             //压缩级别(1-9):4
         );
   
         $file = array(

@@ -51,8 +51,8 @@
         type        : 'GET',
         data        : {},
         loadingmask : true,
-        width       : 500,
-        height      : 300,
+        width       : 600,
+        height      : 380,
         minW        : 65,
         minH        : 40,
         max         : false,
@@ -106,11 +106,12 @@
                 
                 if (options.url) {
                     $dialogContent.ajaxUrl({
-                        type:options.type || 'GET', url:options.url, data:options.data || {}, loadingmask:options.loadingmask, callback:function(response) {
+                        type:options.type || 'GET', async:1, url:options.url, data:options.data || {}, loadingmask:options.loadingmask, callback:function(response) {
                             if (onLoad) onLoad.apply(that, [$dialog])
-                            if (BJUI.ui.clientPaging && $dialog.data('bjui.clientPaging')) $dialog.pagination('setPagingAndOrderby', $dialog)
+                            if (BJUI.ui.clientPaging && $dialog.data('bjui.clientPaging')) $dialog.pagination('setPagingAndOrderby', $dialog)     
                         }
-                    })
+
+                    })          
                 } else if (options.target) {
                     var html = $(options.target).html() || $dialog.data('bjui.dialog.target')
                     
@@ -136,6 +137,7 @@
     }
     
     Dialog.prototype.open = function() {
+
         var that    = this, options = that.options
         var $body   = $('body')
         var $dialog = $body.data(options.id)
@@ -186,8 +188,8 @@
             
             $dialog.find('> .dialogHeader > h1 > span.title').html(options.title)
             
+            this.tools.reload($dialog, options)
             this.tools.init($dialog)
-            
             if (options.maxable) $dialog.find('a.maximize').show()
             else $dialog.find('a.maximize').hide()
             if (options.minable) $dialog.find('a.minimize').show()
@@ -249,9 +251,8 @@
             }).on('mouseup.bjui.dialog.resize', 'div[class^="resizable"]', function(e) {
                 e.preventDefault()
             })
-            
+
             $body.data(options.id, $dialog)
-            this.tools.reload($dialog, options)
         }
         
         $.CurrentDialog = $current = $dialog
@@ -354,6 +355,7 @@
                 _reload()
             }
         }
+
     }
     
     Dialog.prototype.reloadForm = function(clearQuery, option) {

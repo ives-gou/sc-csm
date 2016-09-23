@@ -1,7 +1,7 @@
 <div class="bjui-pageHeader">
     <form id="pagerForm" data-toggle="ajaxsearch" action="__SELF__" method="post">
         <button type="button" class="btn btn-success" data-icon="plus" data-toggle="dialog"
-        data-options="{id:'auth-group-add', url:'{:U('AuthGroup/add')}', title:'新增角色', mask:true}">新增角色</button>&nbsp;
+        data-options="{id:'authgroup-add', url:'{:U('AuthGroup/add')}', title:'新增角色'}">新增角色</button>&nbsp;
         <label>角色名：</label><input type="text" value="{$title}" name="title" class="form-control" size="15">&nbsp;   
         <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
         <button type="button" class="btn btn-orange pull-right" data-icon="refresh" onclick="$(this).navtab('refresh');" >刷新</button>
@@ -29,9 +29,9 @@
                 <td>{$v.sort}</td>
                 <td align="center">{$v.status|statusBtn=$v['id'],###}</td>
                 <td align="center">
-                    <button type="button" class="btn btn-blue" data-toggle="dialog" data-icon="key" data-options="{id:'sc-authRoles{$v.id}', url:'{:U('AuthGroup/auth')}?id={$v.id}', title:'{$v.title}授权', mask:true}" title="授权"></button>
-                    <button type="button" class="btn btn-green" data-toggle="dialog" data-icon="pencil" data-options="{id:'sc-editRoles{$v.id}', url:'{:U('AuthGroup/edit')}?id={$v.id}', title:'编辑菜单', mask:true}" title="编辑"></button>
-                    <a href="{:U('AuthGroup/del')}?id={$v.id}" data-icon="trash" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？" title="删除"></a>
+                    <button type="button" class="btn btn-blue" data-toggle="dialog" data-icon="key" data-options="{id:'authgroup-auth{$v.id}', url:'{:U('auth', array('id' => $v['id']))}', title:'{$v.title}授权'}" title="授权"></button>
+                    <button type="button" class="btn btn-green" data-toggle="dialog" data-icon="pencil" data-options="{id:'authgroup-edit{$v.id}', url:'{:U('edit', array('id' => $v['id']))}', title:'编辑菜单'}" title="编辑"></button>
+                    <a href="{:U('del', array('id' => $v['id']))}" data-icon="trash" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？" title="删除"></a>
                 </td>
             </tr>
            </foreach>

@@ -40,12 +40,10 @@
 </style>
 <div class="bjui-pageHeader">
     <button type="button" id="test123" class="btn btn-success" data-icon="plus" data-toggle="dialog"
-    data-options="{id:'auth-rule-add', url:'{:U('AuthRule/add')}', title:'添加菜单', mask:true}">新增菜单</button>&nbsp;
-    <button type="submit" class="btn btn-info" data-icon="sort-numeric-asc" form="sc-menu-index">更新排序</button>
+    data-options="{id:'authrule-add', url:'{:U('AuthRule/add')}', title:'添加菜单'}">新增菜单</button>&nbsp;
     <button type="button" class="btn btn-orange pull-right" data-icon="refresh" onclick="$(this).navtab('refresh');" >刷新</button>
 </div>
 <div class="bjui-pageContent tableContent">
-    <form action="{:U('Menu/sortAll')}" data-toggle="ajaxform" data-reload-navtab="true">
     <table id="auth-rule-treetable" class="table table-bordered">
         <thead>
             <tr>
@@ -75,17 +73,17 @@
                 </td>
                 <td align="center">{$v.status|statusBtn=$v['id'], ###}</td>
                 <td align="center">
-                    <button type="button" class="btn btn-green" data-toggle="dialog" data-icon="pencil" data-options="{id:'sc-editMenu{$v.id}', url:'{:U('AuthRule/edit')}?id={$v.id}', title:'编辑菜单', mask:true}" title="编辑" ></button>
-                    <button type="button" class="btn btn-red" data-url="{:U('AuthRule/del')}?id={$v.id}" data-icon="trash" data-toggle="doajax" data-confirm-msg="确定要删除吗？" title="删除"></button>
+                    <button type="button" class="btn btn-green" data-toggle="dialog" data-icon="pencil" data-options="{id:'authrule-edit{$v.id}', url:'{:U('edit', array('id' => $v['id']))}', title:'编辑菜单'}" title="编辑" ></button>
+                    <button type="button" class="btn btn-red" data-url="{:U('del', array('id' => $v['id']))}" data-icon="trash" data-toggle="doajax" data-confirm-msg="确定要删除吗？" title="删除"></button>
                 </td>
             </tr>
            </foreach>
         </tbody>
     </table>
-    </form>
 </div>
 
 <script>
-    $("#auth-rule-treetable").treetable({ expandable:true, column:2});
+    $("#auth-rule-treetable").treetable({expandable:true, column:2});
+    $("#auth-rule-treetable").treetable('expandTop');
 </script>
 

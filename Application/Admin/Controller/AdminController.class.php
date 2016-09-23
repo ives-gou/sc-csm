@@ -31,7 +31,7 @@ class AdminController extends Controller{
         	//检测动态配置中的规则
             $config_rule = $this->checkConfigRule();
             if($config_rule === false ){
-                $this->error('403:禁止访问');
+                return show(300, '禁止访问!');
             }elseif($config_rule === null){
                 $rule = MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME;
                 if( !check_auth($rule, $uid) ){

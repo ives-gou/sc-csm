@@ -1,0 +1,36 @@
+<div class="bjui-pageContent">
+        <form action="__SELF__" method="post" data-toggle="validate" data-alertmsg="false">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>旧密码：</label></th>
+                        <td>
+                            <input type="password" name="old_password" placeholder="旧密码" data-rule="旧密码:required;password">
+                            <span class="red">*</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>新密码：</label></th>
+                        <td>
+                            <input type="password" name="password" placeholder="新密码" data-rule="新密码:required;password">
+                            <span class="red">*</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>确认密码：</label></th>
+                        <td>
+                            <input type="password" name="password2" placeholder="确认密码" data-rule="确认密码:required;match(password)">
+                            <span class="red">*</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+</div>
+
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

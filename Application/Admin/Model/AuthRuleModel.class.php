@@ -13,13 +13,8 @@ class AuthRuleModel extends Model{
 
 	//自动验证
 	protected $_validate = array(
-			array('username', 'require', '用户名必须'),
-			array('username', '', '用户名必须唯一', 0, 'unique'),
-			array('nickname', 'require', '昵称/姓名必须'),
-			array('password', 'require', '密码必须', 0, '', 1),
-			array('repassword','password','确认密码不正确', 0, 'confirm'),
-			array('email', 'email', '邮箱格式错误或重复', 2, 'unique'),
-			array('mobile','/^1[3|4|5|7|8]\d{9}$/','手机格式错误！', 2, 'regex'),
+			array('title', 'require', '菜单名必须'),
+			array('name', '', 'url地址必须唯一', 0, 'unique'),
 			array('status', array(0, 1), '状态所属区间错误', 1, 'in'),
 		);
 	/**

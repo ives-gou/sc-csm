@@ -33,8 +33,8 @@
                 <td><?php echo (format_bytes($v["index_length"])); ?></td>
                 <td><?php echo ($v["create_time"]); ?></td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="dialog" data-options="{id:'Database-frame<?php echo ($key); ?>', url:'<?php echo U('frame?name='.$v['name']);?>', title:'<?php echo ($v["name"]); ?>', mask:true}">数据表结构</button>
-                    <button type="button" class="btn btn-primary" data-toggle="dialog" data-options="{id:'Database-sql<?php echo ($key); ?>', url:'<?php echo U('createSql?name='.$v['name']);?>', title:'<?php echo ($v["name"]); ?>', mask:true}">sql 语句</button>
+                    <button type="button" class="btn btn-info" data-toggle="dialog" data-options="{id:'Database-frame<?php echo ($key); ?>', url:'<?php echo U('frame?name='.$v['name']);?>', title:'<?php echo ($v["name"]); ?>'}">数据表结构</button>
+                    <button type="button" class="btn btn-primary" data-toggle="dialog" data-options="{id:'Database-sql<?php echo ($key); ?>', url:'<?php echo U('createSql?name='.$v['name']);?>', title:'<?php echo ($v["name"]); ?>'}">sql 语句</button>
                 </td>
             </tr><?php endforeach; endif; ?>
         </tbody>

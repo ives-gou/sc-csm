@@ -489,8 +489,18 @@
     },
 
     expandAll: function() {
+      console.log(this.data("treetable").tree)
       this.data("treetable").expandAll();
       return this;
+    },
+
+    expandTop: function(){
+      var node = this.data("treetable").tree
+      for (var i in node) {
+        if (node[i].parentId == 0) {
+          node[i].expand();
+        }
+      }
     },
 
     expandNode: function(id) {

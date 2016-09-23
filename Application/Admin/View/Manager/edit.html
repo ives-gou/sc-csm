@@ -1,41 +1,44 @@
 <div class="bjui-pageContent">
-        <form action="{:U('Manager/add')}" method="post" data-toggle="ajaxform" data-reload-navtab="true">
+        <form action="{:U('Manager/add')}" method="post" data-toggle="validate" data-reload-navtab="true" data-alertmsg="false">
             <table class="table">
                 <tbody>
                     <tr>
                         <td><label class="control-label">用户名：</label></td>
                         <td>
-                            <input type="text" name="username" value="{$info.username}"> *
+                            <input type="text" name="username" value="{$info.username}" data-rule="用户名:required;">
+                            <span class="red">*</span>
                         </td>
                     </tr>
                     <tr>
                         <td><label class="control-label">昵称/姓名：</label></td>
                         <td>
-                            <input type="text" name="nickname" value="{$info.nickname}"> *
+                            <input type="text" name="nickname" value="{$info.nickname}" data-rule="昵称/姓名:required;">
+                            <span class="red">*</span>
                         </td>
                     </tr>
                     <tr>
                         <td><label class="control-label">密码：</label></td>
                         <td>
-                            <input type="password" name="password" placeholder="******"> *
+                            <input type="password" name="password" placeholder="不填为原密码" data-rule="密码:password">
+                            (密码由6-16位数字、字母组成)
                         </td>
                     </tr>
                     <tr>
                         <td><label class="control-label">确认密码：</label></td>
                         <td>
-                            <input type="password" name="repassword" placeholder="******"> *
+                            <input type="password" name="repassword" placeholder="******" data-rule="确认密码:match(password)">
                         </td>
                     </tr>
                     <tr>
                         <td><label class="control-label">邮箱：</label></td>
                         <td>
-                            <input type="text" name="email" value="{$info.email}">
+                            <input type="text" name="email" value="{$info.email}" data-rule="email">
                         </td>
                     </tr>
                     <tr>
                         <td><label class="control-label">手机：</label></td>
                         <td>
-                            <input type="text" name="mobile" value="{$info.mobile}">
+                            <input type="text" name="mobile" value="{$info.mobile}" data-rule="mobile">
                         </td>
                     </tr>
                     <tr>

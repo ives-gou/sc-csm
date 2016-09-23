@@ -1,10 +1,10 @@
 <div class="bjui-pageContent">
-    <form action="__SELF__" data-toggle="ajaxform" data-reload-navtab="true">
+    <form action="__SELF__" data-toggle="validate" data-reload-navtab="true" data-alertmsg="false">
         <table class="table table-bordered">
             <tbody>
                 <tr>
                     <td align="center"><label>标题：</label></td>
-                    <td><input type="text" name="title"> *</td>
+                    <td><input type="text" name="title" data-rule="标题:required;"> <span class="red">*</span></td>
                 </tr>
                 <tr>
                     <td align="center"><label>描述：</label></td>
@@ -12,7 +12,7 @@
                 </tr>
                 <tr>
                     <td align="center"><label>排序：</label></td>
-                    <td><input type="text" name="sort" value="99" data-toggle="spinner" size="5"></td>
+                    <td><input type="text" name="sort" value="99" data-toggle="spinner" size="5" data-rule="digits"></td>
                 </tr>
                 <tr>
                     <td align="center"><label>状态：</label></td>

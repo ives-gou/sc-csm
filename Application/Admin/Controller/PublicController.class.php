@@ -21,6 +21,10 @@ class PublicController extends Controller{
             if (!$username || !$password) return show(300, '用户名或密码不能为空！');
             if (!check_verify($captcha, 1)) return show(300, '验证码错误！');
             $result = D('Manager')->login($username, $password);
+            
+            //记录行为
+            $msg = $result ? '登录成功' : '用户名或密码错误';
+            action_log('用户登录', 'Manager', $msg);
             if (!$result) return show(300, '用户名或密码错误');
             return show(200, '登录成功', false, array('url' => U('Index/index')));
         } else {
@@ -34,9 +38,10 @@ class PublicController extends Controller{
 
     /* 注销登录 */
     public function logout(){
+        $uid = is_login();
         session(null);
         //记录行为
-        //action_log('user_login', 'Manager', $info['id'], $info['id']);
+        action_log('用户注销', 'Manager', '注销成功', $uid);
         $this->redirect('Public/login');
     }
 

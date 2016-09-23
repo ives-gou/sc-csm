@@ -443,7 +443,7 @@
         
         var callback = options.callback && options.callback.toFunc()
         var todo     = function() {
-            $element.doAjax({type:options.type, url:options.url, data:options.data, callback:callback ? callback : $.proxy(function(data) {that.ajaxCallback(data)}, that)})
+            $element.doAjax({type:options.type, url:options.url, data:options.data, loadingmask:options.loadingmask, callback:callback ? callback : $.proxy(function(data) {that.ajaxCallback(data)}, that)})
         }
         
         if (options.confirmMsg) {

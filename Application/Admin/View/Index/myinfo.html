@@ -1,0 +1,64 @@
+<div class="bjui-pageContent">
+        <form action="__SELF__" method="post" data-toggle="validate" data-alertmsg="false">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>用户名：</th>
+                        <td>
+                            {$info.username}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>上次登录时间：</th>
+                        <td>
+                            {$info.last_login_time|date="Y-m-d H:i",###}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>上次登录IP：</th>
+                        <td>
+                            {$info.last_login_ip|long2ip}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>昵称/姓名：</th>
+                        <td>
+                            <input type="text" name="nickname" value="{$info.nickname}" data-rule="姓名:required">
+                            <span class="red">*</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>邮箱：</th>
+                        <td>
+                            <input type="text" name="email" value="{$info.email}" data-rule="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>手机：</th>
+                        <td>
+                            <input type="text" name="mobile" value="{$info.mobile}" data-rule="mobile">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>密码：</th>
+                        <td>
+                            <input type="password" name="password" placeholder="******" data-rule="required; password"> 
+                            <code>修改资料请输入当前密码</code>
+                        </td>
+                    </tr>
+                    <input type="hidden" name="id" value="{$info.id}">
+                </tbody>
+            </table>
+        </form>
+</div>
+
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

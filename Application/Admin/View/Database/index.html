@@ -34,8 +34,8 @@
                 <td>{$v.index_length|format_bytes}</td>
                 <td>{$v.create_time}</td>
                 <td>
-                    <button type="button" class="btn btn-info" data-toggle="dialog" data-options="{id:'Database-frame{$key}', url:'{:U('frame?name='.$v['name'])}', title:'{$v.name}', mask:true}">数据表结构</button>
-                    <button type="button" class="btn btn-primary" data-toggle="dialog" data-options="{id:'Database-sql{$key}', url:'{:U('createSql?name='.$v['name'])}', title:'{$v.name}', mask:true}">sql 语句</button>
+                    <button type="button" class="btn btn-info" data-toggle="dialog" data-options="{id:'Database-frame{$key}', url:'{:U('frame?name='.$v['name'])}', title:'{$v.name}'}">数据表结构</button>
+                    <button type="button" class="btn btn-primary" data-toggle="dialog" data-options="{id:'Database-sql{$key}', url:'{:U('createSql?name='.$v['name'])}', title:'{$v.name}'}">sql 语句</button>
                 </td>
             </tr>
            </foreach>
